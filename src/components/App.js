@@ -60,16 +60,52 @@ class App extends Component {
         status: true,
         finishDate: null,
         visible: true
+      },
+      {
+        id: 6,
+        text: "wyłączyć telewizor",
+        date: "2019-03-31",
+        important: false,
+        status: true,
+        finishDate: null,
+        visible: true
       }
     ]
   };
 
   deleteTask = id => {
-    console.log("delete " + id);
+    // First solution
+    // -------------------------------------------------------
+    // const tasks = [...this.state.tasks];
+    // const index = tasks.findIndex(task => task.id === id);
+
+    // tasks.splice(index, 1);
+
+    // this.setState({
+    //   tasks
+    // });
+    // Second solution
+    // -------------------------------------------------------
+    let tasks = [...this.state.tasks];
+    tasks = tasks.filter(task => task.id !== id);
+
+    this.setState({
+      tasks
+    });
   };
 
   changeTaskStatus = id => {
-    console.log("status " + id);
+    const tasks = Array.from(this.state.tasks);
+    tasks.forEach(task => {
+      if (task.id === id) {
+        task.status = false;
+        task.finishDate = new Date().getTime();
+      }
+    });
+
+    this.setState({
+      tasks
+    });
   };
 
   render() {
